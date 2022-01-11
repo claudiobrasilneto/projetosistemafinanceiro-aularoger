@@ -17,3 +17,5 @@ const addTransactionIntoBOM = transaction => {
 
 
 addTransactionIntoBOM(dummyTransactions[1])
+
+// isso é um teste para nova versão
