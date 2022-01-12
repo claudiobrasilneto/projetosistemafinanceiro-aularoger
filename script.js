@@ -3,7 +3,7 @@ const dummyTransactions = [
     { id: 1, name: 'bolo de brigadeiro', amount: -20 },
     { id: 2, name: 'Salário', amount: 300 },
     { id: 3, name: 'torta', amount: -20 },
-    { id: 4, name: 'bolo de brigadeiro', amount: -20 }
+    { id: 4, name: 'Violão', amount: 150 }
     
 ]
 
@@ -20,4 +20,8 @@ ${transaction.name} <span> ${operator} R$ ${amountWithoutOperator}</span><button
 transactionsUl.append(li)
 }
 
+const init = () => {
+    dummyTransactions.forEach(addTransactionIntoBOM)
+}
 
+init ()
