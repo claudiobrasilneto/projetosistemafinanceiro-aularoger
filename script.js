@@ -1,4 +1,9 @@
 const transactionsUl = document.querySelector('#transactions')
+const incomeDisplay = document.querySelector('#money-plus')
+const expenseDisplay = document.querySelector('#money-minus')
+const balanceDisplay = document.querySelector('#balance')
+
+
 const dummyTransactions = [
     { id: 1, name: 'bolo de brigadeiro', amount: -20 },
     { id: 2, name: 'Salário', amount: 300 },
@@ -30,7 +35,14 @@ const updateBalanceValues = () => {
     .filter(value => value > 0)
     .reduce((accumulator, value) => accumulator + value, 0)
     .toFixed(2)
-    console.log(total)
+    const expense = Math.abs(transactionsAmounts
+    .filter(value => value < 0)
+    .reduce((accumulator, value) => accumulator + value, 0))
+    .toFixed(2)
+  
+    balanceDisplay.textContent = `R$ ${total}`
+    incomeDisplay.textContent = `R$ ${income}`
+    expenseDisplay.textContent = `R$ ${expense}` 
 
 }
 
