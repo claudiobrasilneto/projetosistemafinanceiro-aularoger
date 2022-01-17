@@ -7,7 +7,7 @@ const dummyTransactions = [
     
 ]
 
-const addTransactionIntoBOM = transaction => {
+const addTransactionIntoDOM = transaction => {
 const operator = transaction.amount < 0 ? '-' : '+'
 const CSSClass = transaction.amount < 0 ? 'minus' : 'plus'
 const amountWithoutOperator = Math.abs(transaction.amount)
@@ -20,8 +20,24 @@ ${transaction.name} <span> ${operator} R$ ${amountWithoutOperator}</span><button
 transactionsUl.append(li)
 }
 
+// Balanaços e total
+const updateBalanceValues = () => {
+    const transactionsAmounts = dummyTransactions
+    .map(transaction => transaction.amount)
+    const total = transactionsAmounts
+    .reduce((accumulator, transaction) => accumulator + transaction, 0)
+    const income = transactionsAmounts
+    .filter(value => value > 0)
+    .reduce((accumulator, value) => accumulator + value, 0)
+    .toFixed(2)
+    console.log(total)
+
+}
+
+// Arrow fuction que traz os valores para a tela
 const init = () => {
-    dummyTransactions.forEach(addTransactionIntoBOM)
+    dummyTransactions.forEach(addTransactionIntoDOM)
+    updateBalanceValues()
 }
 
 init ()
