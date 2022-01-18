@@ -31,7 +31,7 @@ transactionsUl.append(li)
 // Balanaços e total
 const updateBalanceValues = () => {
     const transactionsAmounts = dummyTransactions
-    .map(transaction => transaction.amount)
+    .map(transaction => transaction.amount) 
     const total = transactionsAmounts
     .reduce((accumulator, transaction) => accumulator + transaction, 0)
     const income = transactionsAmounts
@@ -51,6 +51,7 @@ const updateBalanceValues = () => {
 
 // Arrow fuction que traz os valores para a tela
 const init = () => {
+    transactionsUl.innerHTML = ''
     dummyTransactions.forEach(addTransactionIntoDOM)
     updateBalanceValues()
 }
@@ -75,12 +76,13 @@ form.addEventListener('submit', event => {
     const transaction = { 
         id: generateID(), 
         name: transactionName, 
-        amount: transactionAmount 
+        amount: Number(transactionAmount) 
     }
 
     dummyTransactions.push(transaction)
    
  init()
-
+inputTransactionName.value = ""
+ inputTransactionAmount.value = ""
   
 })
