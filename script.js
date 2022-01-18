@@ -7,16 +7,17 @@ const inputTransactionName = document.querySelector('#text')
 const inputTransactionAmount = document.querySelector('#amount')
 
 
-let dummyTransactions = [
-    { id: 1, name: 'bolo de brigadeiro', amount: -20 },
-    { id: 2, name: 'Salário', amount: 300 },
-    { id: 3, name: 'torta', amount: -20 },
-    { id: 4, name: 'Violão', amount: 150 }
 
-]
+
+const localStorageTransactions = JSON.parse(localStorage.
+    getItem('transactions'))
+
+let transactions =  localStorage
+.getItem('transactions') !== null ? localStorageTransactions :  []
 
 const removeTransaction = ID => {
-   dummyTransactions = dummyTransactions.filter(transaction => transaction.id !== ID) 
+   transactions = transactions.filter(transaction => 
+    transaction.id !== ID) 
    init()
 }
 
@@ -39,7 +40,7 @@ x
 
 // Balanaços e total
 const updateBalanceValues = () => {
-    const transactionsAmounts = dummyTransactions
+    const transactionsAmounts = transactions
         .map(transaction => transaction.amount)
     const total = transactionsAmounts
         .reduce((accumulator, transaction) => accumulator + transaction, 0)
@@ -61,7 +62,7 @@ const updateBalanceValues = () => {
 // Arrow fuction que traz os valores para a tela
 const init = () => {
     transactionsUl.innerHTML = ''
-    dummyTransactions.forEach(addTransactionIntoDOM)
+    transactions.forEach(addTransactionIntoDOM)
     updateBalanceValues()
 }
 
@@ -88,7 +89,7 @@ form.addEventListener('submit', event => {
         amount: Number(transactionAmount)
     }
 
-    dummyTransactions.push(transaction)
+    transactions.push(transaction)
 
     init()
     inputTransactionName.value = ""
