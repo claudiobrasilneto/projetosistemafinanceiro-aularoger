@@ -2,6 +2,9 @@ const transactionsUl = document.querySelector('#transactions')
 const incomeDisplay = document.querySelector('#money-plus')
 const expenseDisplay = document.querySelector('#money-minus')
 const balanceDisplay = document.querySelector('#balance')
+const form = document.querySelector('#form')
+const inputTransactionName = document.querySelector('#text')
+const inputTransactionAmount = document.querySelector('#amount')
 
 
 const dummyTransactions = [
@@ -53,3 +56,31 @@ const init = () => {
 }
 
 init ()
+//const geradora de ID aleatório
+const generateID = () => Math.round(Math.random() * 1000)
+
+//configuração de formulário para não enviar dados
+
+form.addEventListener('submit', event => {
+    event.preventDefault()
+
+    const transactionName = inputTransactionName.value.trim()
+    const transactionAmount = inputTransactionAmount.value.trim()
+
+    if (inputTransactionName.value.trim() === '' || inputTransactionAmount.value.trim() === "") {
+        alert('Por favor, preencha todos os dados da transação')
+        return
+    }
+
+    const transaction = { 
+        id: generateID(), 
+        name: transactionName, 
+        amount: transactionAmount 
+    }
+
+    dummyTransactions.push(transaction)
+   
+ init()
+
+  
+})
