@@ -6,8 +6,8 @@ const form = document.querySelector('#form')
 const inputTransactionName = document.querySelector('#text')
 const inputTransactionAmount = document.querySelector('#amount')
 
-
-let dummyTransactions = [
+/*
+let transactions = [
     { id: 1, name: 'bolo de brigadeiro', amount: -20 },
     { id: 2, name: 'Salário', amount: 300 },
     { id: 3, name: 'torta', amount: -20 },
@@ -15,8 +15,14 @@ let dummyTransactions = [
 
 ]
 
+*/
+
+const localStorageTransactions = JSON.parse(localStorage.getItem('transactions'))
+let transactions = localStorage.getItem('transactions') !== null ? localStorageTransactions : []
+
 const removeTransaction = ID => {
-   dummyTransactions = dummyTransactions.filter(transaction => transaction.id !== ID) 
+   transactions = transactions.filter(transaction => transaction.id !== ID)
+   updateLocalStorage() 
    init()
 }
 
@@ -39,7 +45,7 @@ x
 
 // Balanaços e total
 const updateBalanceValues = () => {
-    const transactionsAmounts = dummyTransactions
+    const transactionsAmounts = transactions
         .map(transaction => transaction.amount)
     const total = transactionsAmounts
         .reduce((accumulator, transaction) => accumulator + transaction, 0)
@@ -61,11 +67,18 @@ const updateBalanceValues = () => {
 // Arrow fuction que traz os valores para a tela
 const init = () => {
     transactionsUl.innerHTML = ''
-    dummyTransactions.forEach(addTransactionIntoDOM)
+    transactions.forEach(addTransactionIntoDOM)
     updateBalanceValues()
 }
 
 init()
+
+//Função que adiciona a transação ao locoStorage
+const updateLocalStorage = () => {
+    localStorage.setItem('transactions', JSON.stringify(transactions))
+}
+
+
 //const geradora de ID aleatório
 const generateID = () => Math.round(Math.random() * 1000)
 
@@ -88,9 +101,10 @@ form.addEventListener('submit', event => {
         amount: Number(transactionAmount)
     }
 
-    dummyTransactions.push(transaction)
+    transactions.push(transaction)
 
     init()
+    updateLocalStorage()
     inputTransactionName.value = ""
     inputTransactionAmount.value = ""
 
